@@ -1,0 +1,15 @@
+<svg width="240" height="74" viewBox="0 0 240 74" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-labelledby="title desc">
+  <title id="title">AFL Consultores Associados</title>
+  <desc id="desc">Logo da AFL com gráfico em verde e texto em cinza.</desc>
+  <path d="M47.7 63.7C42.6 68.2 35.9 71 28.5 71C12.8 71 0 58.2 0 42.5C0 26.8 12.8 14 28.5 14C44.2 14 57 26.8 57 42.5C57 48.9 54.9 54.8 51.3 59.5L54 70L47.7 63.7Z" fill="#F7F8F3"/>
+  <path d="M48.4 61.2C43.8 65.8 37.5 68.7 30.4 68.7C16.3 68.7 4.9 57.3 4.9 43.2C4.9 29.1 16.3 17.7 30.4 17.7C44.5 17.7 55.9 29.1 55.9 43.2C55.9 49.5 53.6 55.3 49.8 59.7" stroke="#5B6470" stroke-width="4.8" stroke-linecap="round"/>
+  <path d="M43.7 17.5C49.8 22 54 29.2 54.7 37.4" stroke="#B3C800" stroke-width="4.8" stroke-linecap="round"/>
+  <path d="M30.4 17.7C16.3 17.7 4.9 29.1 4.9 43.2C4.9 50.9 8.3 57.8 13.7 62.4" stroke="#B3C800" stroke-width="4.8" stroke-linecap="round"/>
+  <rect x="17" y="42" width="7" height="15" fill="#B3C800"/>
+  <rect x="28" y="35" width="7" height="22" fill="#B3C800"/>
+  <rect x="39" y="26" width="7" height="31" fill="#B3C800"/>
+  <path d="M75.7 12H91.1L116.6 61H102.9L98.1 51.3H69.2L64.4 61H50.8L75.7 12ZM93 40.8L83.7 22L74.3 40.8H93Z" fill="#5B6470"/>
+  <path d="M120.4 12H169.7V24H133.4V32.3H165.1V44.3H133.4V61H120.4V12Z" fill="#5B6470"/>
+  <path d="M178.1 12H191.1V49H228.7V61H178.1V12Z" fill="#5B6470"/>
+  <text x="73" y="71" fill="#5B6470" font-family="Arial, Helvetica, sans-serif" font-size="10" font-weight="600" letter-spacing="1.8">CONSULTORES ASSOCIADOS</text>
+</svg>

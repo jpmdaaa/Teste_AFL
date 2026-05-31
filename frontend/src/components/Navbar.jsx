@@ -1,4 +1,6 @@
-import { CheckSquare, LogOut } from "lucide-react";
+import { LogOut } from "lucide-react";
+
+import aflLogo from "../assets/afl-logo.svg";
 
 function Navbar({ user, currentPage, onNavigate, onLogout }) {
   return (
@@ -9,8 +11,11 @@ function Navbar({ user, currentPage, onNavigate, onLogout }) {
         onClick={() => onNavigate(user ? "tasks" : "login")}
         aria-label="Ir para inicio"
       >
-        <CheckSquare size={22} />
-        <span>To-Do List</span>
+        <img
+          className="brand-logo"
+          src={aflLogo}
+          alt="AFL Consultores Associados"
+        />
       </button>
 
       <nav className="nav-actions">
