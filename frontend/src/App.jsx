@@ -12,6 +12,7 @@ function App() {
   const [checkingAuth, setCheckingAuth] = useState(true);
 
   async function loadCurrentUser() {
+    // Ao abrir a aplicação, tentamos reaproveitar o token salvo para manter o usuário logado.
     const token = localStorage.getItem("token");
 
     if (!token) {
@@ -26,6 +27,7 @@ function App() {
       setUser(response.data);
       setPage("tasks");
     } catch {
+      // Token inválido ou expirado volta o usuário para o login, sem quebrar a tela.
       localStorage.removeItem("token");
       setUser(null);
       setPage("login");

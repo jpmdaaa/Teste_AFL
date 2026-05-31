@@ -32,6 +32,7 @@ function Tasks({ user, onUnauthorized }) {
   const [taskToDelete, setTaskToDelete] = useState(null);
 
   const loadTasks = useCallback(async () => {
+    // Mantém a lista sincronizada com o backend sempre que algo muda.
     setLoading(true);
     setError("");
 
@@ -60,6 +61,7 @@ function Tasks({ user, onUnauthorized }) {
 
     try {
       if (selectedTask) {
+        // Com uma tarefa selecionada, o mesmo formulário passa a editar em vez de criar.
         await api.put(`/tasks/${selectedTask.id}`, taskData);
         setMessage("Tarefa atualizada com sucesso.");
       } else {
@@ -112,6 +114,7 @@ function Tasks({ user, onUnauthorized }) {
   const filteredTasks = useMemo(() => {
     const normalizedSearch = search.trim().toLowerCase();
 
+    // Filtramos no frontend para a busca responder rápido sem nova ida ao servidor.
     return tasks.filter((task) => {
       const matchesStatus = !statusFilter || task.status === statusFilter;
       const matchesSearch =
@@ -122,6 +125,7 @@ function Tasks({ user, onUnauthorized }) {
     });
   }, [search, statusFilter, tasks]);
 
+  // Este resumo dá uma visão rápida do progresso geral das tarefas.
   const completedCount = tasks.filter((task) => task.status === "concluida").length;
 
   return (

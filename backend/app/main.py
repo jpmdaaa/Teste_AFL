@@ -4,6 +4,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.database import Base, engine
 from app.routers import auth, tasks
 
+# Cria as tabelas no SQLite quando a API sobe, facilitando a execução local do projeto.
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
@@ -14,6 +15,7 @@ app = FastAPI(
 
 app.add_middleware(
     CORSMiddleware,
+    # Libera o frontend do Vite para conversar com a API durante o desenvolvimento.
     allow_origins=["http://localhost:5173", "http://127.0.0.1:5173"],
     allow_credentials=True,
     allow_methods=["*"],

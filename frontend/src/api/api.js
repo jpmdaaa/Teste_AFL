@@ -5,6 +5,7 @@ const api = axios.create({
 });
 
 api.interceptors.request.use((config) => {
+  // Antes de cada chamada, anexamos o JWT salvo para liberar as rotas protegidas.
   const token = localStorage.getItem("token");
 
   if (token) {

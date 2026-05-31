@@ -9,6 +9,7 @@ from app.database import Base
 class User(Base):
     __tablename__ = "usuarios"
 
+    # Representa quem usa o sistema; o e-mail único evita cadastros duplicados.
     id = Column(Integer, primary_key=True, index=True)
     nome = Column(String(120), nullable=False)
     email = Column(String(255), unique=True, index=True, nullable=False)
@@ -18,6 +19,7 @@ class User(Base):
     tarefas = relationship(
         "Task",
         back_populates="usuario",
+        # Ao remover um usuário, suas tarefas também são removidas para não sobrar dado órfão.
         cascade="all, delete-orphan",
     )
 
@@ -25,6 +27,7 @@ class User(Base):
 class Task(Base):
     __tablename__ = "tarefas"
 
+    # Cada tarefa pertence a um usuário específico, garantindo privacidade entre contas.
     id = Column(Integer, primary_key=True, index=True)
     titulo = Column(String(160), index=True, nullable=False)
     descricao = Column(Text, nullable=True)
