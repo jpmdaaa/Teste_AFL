@@ -33,7 +33,7 @@ function Register({ onRegistered, onGoToLogin }) {
       await api.post("/auth/register", form);
       setSuccess("Conta criada com sucesso. Voce ja pode fazer login.");
       setForm({ nome: "", email: "", senha: "" });
-      // Pequena pausa para a pessoa ler a confirmação antes de voltar ao login.
+      // Dá um tempinho para a pessoa ler a mensagem.
       setTimeout(onRegistered, 900);
     } catch (requestError) {
       setError(getErrorMessage(requestError));

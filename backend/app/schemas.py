@@ -6,7 +6,7 @@ from pydantic import BaseModel, EmailStr, Field
 
 
 class TaskStatus(str, Enum):
-    # Enum mantém os status aceitos pela API em uma lista pequena e previsível.
+    # Lista os status que uma tarefa pode ter.
     pendente = "pendente"
     em_andamento = "em_andamento"
     concluida = "concluida"
@@ -25,7 +25,7 @@ class UserRead(BaseModel):
     data_criacao: datetime
 
     class Config:
-        # Permite montar a resposta diretamente a partir dos modelos do SQLAlchemy.
+        # Ajuda a transformar dados do banco em resposta da API.
         from_attributes = True
 
 
@@ -46,7 +46,7 @@ class TaskCreate(BaseModel):
 
 
 class TaskUpdate(BaseModel):
-    # Campos opcionais permitem atualizar só o que mudou, sem reenviar a tarefa inteira.
+    # Permite mudar apenas os campos enviados.
     titulo: Optional[str] = Field(default=None, min_length=2, max_length=160)
     descricao: Optional[str] = Field(default=None, max_length=2000)
     status: Optional[TaskStatus] = None

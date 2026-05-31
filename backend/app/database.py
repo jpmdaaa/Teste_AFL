@@ -13,7 +13,7 @@ Base = declarative_base()
 
 
 def get_db():
-    # Entrega uma sessão por requisição e garante o fechamento ao final do uso.
+    # Abre uma conexão com o banco e fecha no fim do uso.
     db = SessionLocal()
     try:
         yield db

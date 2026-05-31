@@ -12,7 +12,7 @@ router = APIRouter(prefix="/tasks", tags=["Tarefas"])
 
 
 def get_user_task(task_id: int, user_id: int, db: Session) -> Task:
-    # Busca a tarefa já filtrando pelo dono, evitando acesso a dados de outro usuário.
+    # Busca a tarefa apenas se ela for do usuário logado.
     task = (
         db.query(Task)
         .filter(Task.id == task_id, Task.usuario_id == user_id)
@@ -32,7 +32,7 @@ def create_task(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-    # O usuário autenticado vira o dono da tarefa automaticamente.
+    # A nova tarefa já nasce ligada ao usuário logado.
     task = Task(
         titulo=task_data.titulo.strip(),
         descricao=task_data.descricao,
@@ -52,14 +52,14 @@ def list_tasks(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user),
 ):
-    # A listagem sempre começa limitada às tarefas do usuário logado.
+    # Mostra só as tarefas do usuário logado.
     query = db.query(Task).filter(Task.usuario_id == current_user.id)
 
     if status_filter:
         query = query.filter(Task.status == status_filter.value)
 
     if search:
-        # A busca ignora maiúsculas e minúsculas para ficar mais confortável no uso diário.
+        # Busca pelo título sem se importar com maiúsculas ou minúsculas.
         query = query.filter(Task.titulo.ilike(f"%{search.strip()}%"))
 
     return query.order_by(Task.data_criacao.desc()).all()
@@ -82,7 +82,7 @@ def update_task(
     current_user: User = Depends(get_current_user),
 ):
     task = get_user_task(task_id, current_user.id, db)
-    # exclude_unset mantém fora da atualização os campos que nem vieram na requisição.
+    # Pega só os campos que vieram para mudança.
     update_data = task_data.model_dump(exclude_unset=True)
 
     if "titulo" in update_data and update_data["titulo"] is not None:

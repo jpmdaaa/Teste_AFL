@@ -7,7 +7,7 @@ const statusLabels = {
 };
 
 function formatDate(value) {
-  // Mostra a data no formato brasileiro para combinar com o restante da interface.
+  // Mostra a data no formato usado no Brasil.
   return new Intl.DateTimeFormat("pt-BR", {
     dateStyle: "short",
     timeStyle: "short",

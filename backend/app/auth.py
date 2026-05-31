@@ -18,17 +18,17 @@ pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
 
 
 def hash_password(password: str) -> str:
-    # Nunca salvamos a senha pura: o bcrypt transforma a senha em um hash seguro.
+    # A senha é salva como código seguro, não como texto.
     return pwd_context.hash(password)
 
 
 def verify_password(plain_password: str, password_hash: str) -> bool:
-    # Compara a senha digitada com o hash salvo, sem precisar revelar a senha original.
+    # Confere se a senha digitada bate com a senha salva.
     return pwd_context.verify(plain_password, password_hash)
 
 
 def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -> str:
-    # O token carrega os dados mínimos do usuário e uma expiração para limitar o acesso.
+    # O token identifica o usuário e tem hora para vencer.
     to_encode = data.copy()
     expire = datetime.utcnow() + (
         expires_delta or timedelta(minutes=ACCESS_TOKEN_EXPIRE_MINUTES)
@@ -39,7 +39,7 @@ def create_access_token(data: dict, expires_delta: Optional[timedelta] = None) -
 
 def decode_access_token(token: str) -> dict:
     try:
-        # Se a assinatura ou a validade falhar, a biblioteca lança erro e bloqueamos o acesso.
+        # Se o token estiver errado ou vencido, o acesso é negado.
         return jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
     except JWTError as exc:
         raise ValueError("Token invalido ou expirado") from exc

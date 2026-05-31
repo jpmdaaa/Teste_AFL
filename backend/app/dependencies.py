@@ -13,7 +13,7 @@ def get_current_user(
     token: str = Depends(oauth2_scheme),
     db: Session = Depends(get_db),
 ) -> User:
-    # Esta dependência centraliza a regra: só segue adiante quem tem um JWT válido.
+    # Só deixa passar quem enviou um token válido.
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Nao foi possivel validar as credenciais",
@@ -30,7 +30,7 @@ def get_current_user(
 
     user = db.get(User, int(user_id))
     if user is None:
-        # Mesmo com token válido, o usuário precisa existir no banco para acessar a API.
+        # O usuário ainda precisa existir no banco.
         raise credentials_exception
 
     return user

@@ -16,7 +16,7 @@ router = APIRouter(prefix="/auth", tags=["Autenticacao"])
     status_code=status.HTTP_201_CREATED,
 )
 def register(user_data: UserCreate, db: Session = Depends(get_db)):
-    # Antes de criar a conta, confirmamos se o e-mail já está em uso.
+    # Antes de criar a conta, verifica se o e-mail já existe.
     existing_user = db.query(User).filter(User.email == user_data.email).first()
     if existing_user:
         raise HTTPException(
@@ -39,7 +39,7 @@ def register(user_data: UserCreate, db: Session = Depends(get_db)):
 def login(credentials: LoginRequest, db: Session = Depends(get_db)):
     user = db.query(User).filter(User.email == credentials.email.lower()).first()
     if not user or not verify_password(credentials.senha, user.senha_hash):
-        # A mesma mensagem cobre e-mail e senha para não dar pistas sobre contas cadastradas.
+        # Usa a mesma mensagem para e-mail errado ou senha errada.
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Email ou senha invalidos",
@@ -47,7 +47,7 @@ def login(credentials: LoginRequest, db: Session = Depends(get_db)):
         )
 
     access_token = create_access_token({"sub": str(user.id)})
-    # O frontend guarda este token e o envia nas próximas requisições protegidas.
+    # O frontend guarda este token para usar nas próximas chamadas.
     return Token(access_token=access_token)
 
 

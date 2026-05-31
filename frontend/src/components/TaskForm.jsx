@@ -10,7 +10,7 @@ function TaskForm({ selectedTask, loading, onSubmit, onCancel }) {
   const [form, setForm] = useState(initialValues);
 
   useEffect(() => {
-    // Quando uma tarefa é escolhida para edição, seus dados preenchem o formulário.
+    // Ao editar, coloca os dados da tarefa no formulário.
     if (selectedTask) {
       setForm({
         titulo: selectedTask.titulo,
@@ -29,7 +29,7 @@ function TaskForm({ selectedTask, loading, onSubmit, onCancel }) {
 
   async function handleSubmit(event) {
     event.preventDefault();
-    // Limpamos espaços extras antes de mandar os dados para a API.
+    // Tira espaços sobrando antes de enviar.
     await onSubmit({
       titulo: form.titulo.trim(),
       descricao: form.descricao.trim() || null,

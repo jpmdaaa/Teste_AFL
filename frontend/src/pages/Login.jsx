@@ -23,7 +23,7 @@ function Login({ onAuthenticated, onGoToRegister }) {
 
     try {
       const loginResponse = await api.post("/auth/login", form);
-      // Guardamos o token para que o interceptor envie a autenticação nas próximas chamadas.
+      // Salva o token para a próxima chamada já ir autenticada.
       localStorage.setItem("token", loginResponse.data.access_token);
 
       const userResponse = await api.get("/auth/me");
